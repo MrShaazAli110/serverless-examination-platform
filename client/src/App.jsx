@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
+import { AuthModal } from './components/AuthModal';
 import { Dashboard } from './pages/Dashboard';
 import { ExamCatalog } from './pages/ExamCatalog';
 import { ExamRoom } from './pages/ExamRoom';
@@ -11,6 +12,7 @@ import { StudentHistory } from './pages/StudentHistory';
 import { SuperAdminConsole } from './pages/SuperAdminConsole';
 
 function AppContent() {
+  const { authModalOpen, setAuthModalOpen } = useAuth();
   const [activeTab, setActiveTab] = useState(() => {
     const hash = window.location.hash.replace('#', '').trim();
     const validTabs = ['dashboard', 'catalog', 'creator', 'analytics', 'history', 'admin'];
@@ -143,6 +145,12 @@ function AppContent() {
           </div>
         </footer>
       )}
+
+      {/* Global Authentication & Registration Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+      />
     </div>
   );
 }

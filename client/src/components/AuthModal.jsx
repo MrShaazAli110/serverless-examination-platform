@@ -208,6 +208,49 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
           </button>
         </div>
 
+        {/* Quick Demo Fill Pills */}
+        <div style={{
+          marginBottom: '1.25rem',
+          padding: '0.65rem 0.85rem',
+          background: 'rgba(99, 102, 241, 0.08)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid rgba(99, 102, 241, 0.2)'
+        }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginBottom: '0.4rem', fontWeight: 600 }}>
+            🚀 Instant Demo Logins (Click to autofill):
+          </div>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className="badge"
+              style={{ cursor: 'pointer', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '0.25rem 0.5rem' }}
+              onClick={() => {
+                setMode('login');
+                setEmail('examiner@examsphere.io');
+                setPassword('admin123');
+                setErrorMsg('');
+              }}
+            >
+              👩‍🏫 Examiner (examiner@examsphere.io)
+            </button>
+            <button
+              type="button"
+              className="badge"
+              style={{ cursor: 'pointer', background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)', padding: '0.25rem 0.5rem' }}
+              onClick={() => {
+                setMode('super_admin');
+                setEmail('superadmin@examsphere.io');
+                setPassword('admin123');
+                setFullName('Super Administrator');
+                setAdminSecretKey('SUPER_ADMIN_2026');
+                setErrorMsg('');
+              }}
+            >
+              🛡️ Super Admin
+            </button>
+          </div>
+        </div>
+
         {/* Feedback Messages */}
         {errorMsg && (
           <div style={{

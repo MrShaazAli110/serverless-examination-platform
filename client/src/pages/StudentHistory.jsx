@@ -89,7 +89,7 @@ export const StudentHistory = ({ onViewResult, onSelectExam, setActiveTab }) => 
               <span className="badge badge-primary">{currentUser.role}</span>
             </div>
             <p style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>
-              {currentUser.email} • Candidate ID: #{currentUser.id.slice(-6).toUpperCase()}
+              {currentUser.email} • Candidate ID: #{currentUser?.id ? currentUser.id.slice(-6).toUpperCase() : 'CANDIDATE'}
             </p>
           </div>
         </div>

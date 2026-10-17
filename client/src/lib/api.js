@@ -15,6 +15,12 @@ async function hashPassword(password) {
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+// PostgreSQL UUID validator (prevents 22P02 invalid input syntax errors)
+function isValidUuid(val) {
+  if (!val || typeof val !== 'string') return false;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(val);
+}
+
 export const api = {
   // System Health / Supabase Connectivity
   async getHealth() {
@@ -291,7 +297,7 @@ export const api = {
         allow_calculator: Boolean(examData.allow_calculator),
         access_code: examData.access_code || null,
         status: examData.status || 'published',
-        created_by: examData.created_by || null,
+        created_by: isValidUuid(examData.created_by) ? examData.created_by : null,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
@@ -418,7 +424,7 @@ export const api = {
 
       const newAttempt = {
         exam_id: examId,
-        student_id: student?.id || null,
+        student_id: isValidUuid(student?.id) ? student.id : null,
         student_name: student?.full_name || 'Anonymous Student',
         student_email: student?.email || 'student@examsphere.io',
         started_at: new Date().toISOString(),

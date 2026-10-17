@@ -67,10 +67,14 @@ export const ExamRoom = ({ examId, onExamCompleted, onExit }) => {
         setSecondsRemaining((examData.duration_minutes || 30) * 60);
 
         // Start attempt session in database
-        const studentInfo = currentUser || {
-          id: 'guest-candidate',
+        const studentInfo = currentUser ? {
+          id: currentUser.id,
+          full_name: currentUser.full_name,
+          email: currentUser.email,
+        } : {
+          id: null,
           full_name: 'Guest Candidate',
-          email: 'candidate@examsphere.io'
+          email: 'guest@examsphere.io',
         };
         const attemptRes = await api.startAttempt(examId, studentInfo);
         if (attemptRes.success && isMounted) {
@@ -335,7 +339,7 @@ export const ExamRoom = ({ examId, onExamCompleted, onExit }) => {
             </span>
           </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '2px' }}>
-            Candidate: <strong>{currentUser.full_name}</strong> ({currentUser.email})
+            Candidate: <strong>{currentUser?.full_name || attempt?.student_name || 'Guest Candidate'}</strong> ({currentUser?.email || attempt?.student_email || 'guest@examsphere.io'})
           </div>
         </div>
 

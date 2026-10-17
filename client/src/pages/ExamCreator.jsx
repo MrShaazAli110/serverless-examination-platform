@@ -186,7 +186,7 @@ export const ExamCreator = ({ onExamCreated, onCancel }) => {
         fullscreen_required: Boolean(fullscreenRequired),
         webcam_required: Boolean(webcamRequired),
         access_code: accessCode.trim(),
-        created_by: currentUser.id,
+        created_by: currentUser?.id || null,
         questions: questions.map((q, idx) => ({
           ...q,
           order_index: idx + 1,
